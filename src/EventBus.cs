@@ -44,4 +44,9 @@ public class EventBus<TEvent> : IEventBus<TEvent>
         if(exceptions.Count > 0)
             throw new AggregateException(exceptions);
     }
+
+    void IDisposable.Dispose()
+    {
+        Listeners.Clear();
+    }
 }

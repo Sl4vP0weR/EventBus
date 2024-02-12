@@ -15,7 +15,7 @@ public class Delegates : Test
     }
 
     [Fact]
-    public async Task Raise()
+    public virtual async Task Raise()
     {
         UserEvent @event;
 
