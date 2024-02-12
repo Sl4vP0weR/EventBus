@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <RootNamespace>EventBus.Tests</RootNamespace>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <LangVersion>preview</LangVersion>
+        <Nullable>annotations</Nullable>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <Using Include="Xunit" />
+        <Using Include="Xunit.Abstractions" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <ProjectReference Include="../src/EventBus.csproj" />
+        
+        <PackageReference Include="xUnit.Abstractions" Version="*-*" />
+        <PackageReference Include="xUnit.Assert" Version="*-*" />
+        <PackageReference Include="xUnit.Core" Version="*-*" />
+        <PackageReference Include="xUnit.Extensibility.Execution" Version="*-*" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="*-*" />
+    </ItemGroup>
+</Project>
