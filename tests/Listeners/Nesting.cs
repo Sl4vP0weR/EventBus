@@ -13,7 +13,7 @@ public class Nesting : Delegates
 
         var handler = LogListener;
 
-        new EventListener<UserEvent>(handler) { Order = int.MaxValue }.Listen(Bus);
+        handler.ToListener(int.MaxValue).Listen(Bus);
 
         Bus.Listeners.Add(Nested);
 

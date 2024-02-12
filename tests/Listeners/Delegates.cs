@@ -21,7 +21,7 @@ public class Delegates : Test
 
         var handler = LogListener;
 
-        var logListener = new EventListener<UserEvent>(handler) { Order = int.MaxValue }.Listen(Bus);
+        handler.ToListener(int.MaxValue).Listen(Bus);
 
         handler = PassListener;
         

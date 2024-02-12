@@ -16,6 +16,13 @@ public static class Extensions
         return Handler;
     }
     
+    public static Task Raise<TEvent>(this TEvent @event, IEventBus? bus = null)
+        where TEvent : IEvent
+    {
+        bus ??= EventBus.Global;
+        return bus.Raise(@event);
+    }
+    
     public static TaskAwaiter GetAwaiter<TEvent>(this TEvent @event) 
         where TEvent : IEvent => 
         @event.Raise().GetAwaiter();
@@ -26,26 +33,20 @@ public static class Extensions
         bus ??= EventBus.Global;
         return bus.Listeners.Add(listener);
     }
-    
-    public static Task Raise<TEvent>(this TEvent @event, IEventBus? bus = null)
-        where TEvent : IEvent
-    {
-        bus ??= EventBus.Global;
-        return bus.Raise(@event);
-    }
 
-    public static IEventListener<TEvent> ToListener<TEvent>(this Delegate handler)
+    public static IEventListener<TEvent> ToListener<TEvent>(this Action<TEvent> handler, int order = 0)
         where TEvent : IEvent =>
-        handler.Method.ToListener<TEvent>(handler.Target);
+        new EventListener<TEvent>(handler) { Order = order };
 
-    public static IEventListener<TEvent> ToListener<TEvent>(this Action<TEvent> handler)
-        where TEvent : IEvent =>
-        new EventListener<TEvent>(handler);
-
-    public static IEventListener<TEvent> ToListener<TEvent>(this MethodBase method, object? target = null)
+    public static IEventListener<TEvent> ToListener<TEvent>(this MethodBase method, object? target = null, int order = 0)
         where TEvent : IEvent
     {
         void Handler(TEvent @event) => method.Invoke(target, [@event]);
-        return new EventListener<TEvent>(Handler);
+        var handler = Handler;
+        return handler.ToListener(order);
     }
+
+    public static IEventListener<TEvent> ToListener<TEvent>(this Delegate handler, int order = 0)
+        where TEvent : IEvent =>
+        handler.Method.ToListener<TEvent>(handler.Target, order);
 }
