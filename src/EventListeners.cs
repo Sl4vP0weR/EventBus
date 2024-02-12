@@ -39,9 +39,11 @@ public sealed class EventListeners : IEnumerable<ListenerEntry>
     /// </summary>
     public void Clear()
     {
-        foreach(var listener in listeners)
+        while (Count > 0)
+        {
+            var listener = listeners.First();
             listener.Dispose();
-        listeners.Clear();
+        }
     }
 
     internal bool RemoveInternal(ListenerEntry listener) => listeners.Remove(listener);

@@ -3,7 +3,7 @@ namespace EventBus;
 /// <summary>
 /// Event listener proxy with a lifetime management.
 /// </summary>
-public class ListenerEntry : IEventListener, IComparable<ListenerEntry>
+public sealed class ListenerEntry : IEventListener, IComparable<ListenerEntry>
 {
     public EventListeners Owner { get; }
     public IEventListener Listener { get; }
