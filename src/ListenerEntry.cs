@@ -3,7 +3,7 @@ namespace EventBus;
 /// <summary>
 /// Event listener proxy with a lifetime management.
 /// </summary>
-public sealed class ListenerEntry : IEventListener, IComparable<ListenerEntry>
+public sealed class ListenerEntry : IDisposable, IComparable<ListenerEntry>
 {
     public EventListeners Owner { get; }
     public IEventListener Listener { get; }
@@ -21,11 +21,17 @@ public sealed class ListenerEntry : IEventListener, IComparable<ListenerEntry>
     /// <exception cref="ObjectDisposedException">Entry was disposed.</exception>
     public Task Handle(object @event)
     {
-        if (Disposed) 
-            throw new ObjectDisposedException(nameof(ListenerEntry));
+        ThrowIfDisposed();
         
         return Listener.Handle(@event);
-    } 
+    }
+
+    /// <exception cref="ObjectDisposedException">Entry was disposed.</exception>
+    public void ThrowIfDisposed()
+    {
+        if (Disposed) 
+            throw new ObjectDisposedException(nameof(ListenerEntry));
+    }
         
     public void Dispose()
     {

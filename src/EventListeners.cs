@@ -18,19 +18,20 @@ public sealed class EventListeners : IEnumerable<ListenerEntry>
     /// <summary>
     /// Adds new listener to the collection.
     /// </summary>
-    public ListenerEntry Add(IEventListener listener)
+    public ListenerEntry Add(IEventListener listener, bool distinct = false)
     {
-        // if entry exists, return it
-        // if listener entry already passed, we return it
-        listener = listeners.FirstOrDefault(x => x.Listener == listener) ?? listener; 
-        
-        if (listener is not ListenerEntry proxy)
+        ListenerEntry proxy;
+
+        if (distinct)
         {
-            proxy = new(this, listener);
-
-            listeners.Add(proxy);
+            proxy = listeners.FirstOrDefault(x => x.Listener == listener);
+            if (proxy is not null)
+                return proxy;
         }
+        
+        proxy = new(this, listener);
 
+        listeners.Add(proxy);
         return proxy;
     }
 
