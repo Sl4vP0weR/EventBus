@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>netstandard2.1;net6.0;net8.0;net9.0</TargetFrameworks>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <LangVersion>preview</LangVersion>
+        <Nullable>annotations</Nullable>
+        <RootNamespace>EventSourcing</RootNamespace>
+        <Version>1.0.0.0$(VersionMetadata)</Version>
+        <Description>Event sourcing pattern implementation.</Description>
+        <Authors>Sl4vP0weR</Authors>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="EventSourcing.Tests"/>
+        <InternalsVisibleTo Include="EventSourcing.Sandbox"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Nito.AsyncEx" Version="5.1.2"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
+        <PackageReference Include="PolySharp" Version="*-*"/>
+    </ItemGroup>
+
+</Project>
