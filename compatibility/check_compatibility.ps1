@@ -5,7 +5,8 @@ $exitCode = 0
 # Process each baseline package
 Get-ChildItem -Path $baselineDir -Filter *.nupkg -Recurse | ForEach-Object {
     $baselinePackage = $_.FullName
-    $packageId, $version = $_.BaseName -split "\.", 2
+    $version = if ($_.BaseName -match '(\d+\.\d+\.\d+(?:\.\d+)?)') { $matches[0] } else { "" }
+    $packageId = $_.BaseName -replace "\.$version.*", ""
 
     Write-Host "`e[36mCompatibility check for `e[35m$packageId v$version`e[33m`n"
 

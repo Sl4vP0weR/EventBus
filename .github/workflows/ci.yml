@@ -97,10 +97,5 @@ jobs:
       - name: Publish to NuGet
         run: |
           for package in ./packages/*.nupkg; do
-            package_name=$(basename -- "package")
-            package_name="${package_name%.*}"
-            package_version=$(echo "$package_name" | grep -oP '(\d+)\.(\d+)\.(\d+)(\.\d+)?$')
-            package_id=${package_name%.$package_version}
-            dotnet nuget delete "$package_id" "$package_version" -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --non-interactive
-            dotnet nuget push "$package" -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
+            dotnet nuget push "$package"  -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
           done
