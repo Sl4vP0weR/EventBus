@@ -10,7 +10,14 @@
         <PackageId>Sl4vP0weR.EventSourcing</PackageId>
         <Description>Event sourcing pattern implementation.</Description>
         <Authors>Sl4vP0weR</Authors>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
+    
+    <ItemGroup>
+        <None Include="../icon.png" Pack="true" PackagePath="/"/>
+        <None Include="../README.md" Pack="true" PackagePath="/"/>
+    </ItemGroup>
 
     <ItemGroup>
         <InternalsVisibleTo Include="EventSourcing.Tests"/>
