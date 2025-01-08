@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net6.0;net8.0;net9.0</TargetFrameworks>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <LangVersion>preview</LangVersion>
+        <Nullable>annotations</Nullable>
+        <RootNamespace>EventSourcing.Tests</RootNamespace>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <Using Include="FluentAssertions" />
+        <Using Include="Xunit" />
+        <Using Include="Xunit.Abstractions" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <ProjectReference Include="..\src\EventSourcing.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="Extensions\EventExtensionsTests.*.cs" DependentUpon="EventExtensionsTests.cs"/>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="xUnit.Abstractions" Version="*-*" />
+        <PackageReference Include="xUnit.Assert" Version="*-*" />
+        <PackageReference Include="xUnit.Core" Version="*-*" />
+        <PackageReference Include="xUnit.Extensibility.Execution" Version="*-*" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="*-*" />
+        <PackageReference Include="FluentAssertions" Version="7.0.0" />
+    </ItemGroup>
+</Project>
