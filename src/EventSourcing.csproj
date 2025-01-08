@@ -6,10 +6,12 @@
         <LangVersion>preview</LangVersion>
         <Nullable>annotations</Nullable>
         <RootNamespace>EventSourcing</RootNamespace>
-        <Version>1.0.0.0$(VersionMetadata)</Version>
+        <Version>1.0.0.1$(VersionMetadata)</Version>
         <PackageId>Sl4vP0weR.EventSourcing</PackageId>
         <Description>Event sourcing pattern implementation.</Description>
         <Authors>Sl4vP0weR</Authors>
+        <RepositoryUrl>https://github.com/Sl4vP0weR/EventSourcing</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
         <PackageIcon>icon.png</PackageIcon>
         <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
