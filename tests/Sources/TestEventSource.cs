@@ -1,6 +1,6 @@
 ﻿using EventSourcing.Abstractions;
 
-namespace EventSourcing.Tests;
+namespace EventSourcing.Tests.Sources;
 
 public class TestEventSource : IEventSource
 {

@@ -3,6 +3,7 @@ using EventSourcing.Extensions;
 using EventSourcing.Implementations;
 using EventSourcing.Internal.Implementations;
 using EventSourcing.Tests.Events;
+using EventSourcing.Tests.Sources;
 
 namespace EventSourcing.Tests.Extensions;
 
@@ -17,7 +18,7 @@ public sealed partial class EventHandlerExtensionsTests : IDisposable
     [Fact]
     public static void Listen_HandlerLifetimeDispose_ThrowsInvalidOperation()
     {
-        var eventSource = new TestEventSource().AsEventSource<TestEvent>();
+        var eventSource = new TestEventSource().AsEventSource<TestEvent>() as EventSource<TestEvent>;
         var @event = new TestEvent();
         Disposable lifetime = null!;
 
@@ -44,7 +45,7 @@ public sealed partial class EventHandlerExtensionsTests : IDisposable
     [Fact]
     public static void Listen_HandlerLifetimeDispose_EmptySourceHandlers()
     {
-        var eventSource = new TestEventSource().AsEventSource<TestEvent>();
+        var eventSource = new TestEventSource().AsEventSource<TestEvent>() as EventSource<TestEvent>;
         var @event = new TestEvent();
 
         void Handle(TestEvent @event) { }

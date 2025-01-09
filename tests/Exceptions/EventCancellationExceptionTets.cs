@@ -7,6 +7,7 @@ using EventSourcing.Extensions;
 using EventSourcing.Implementations;
 using EventSourcing.Internal.Implementations;
 using EventSourcing.Tests.Events;
+using EventSourcing.Tests.Sources;
 
 namespace EventSourcing.Tests.Exceptions;
 

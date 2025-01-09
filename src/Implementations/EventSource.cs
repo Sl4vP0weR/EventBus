@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Diagnostics;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using EventSourcing.Abstractions;
 using EventSourcing.Exceptions;
@@ -10,7 +11,7 @@ namespace EventSourcing.Implementations;
 
 // ReSharper disable once EmptyConstructor
 [DebuggerDisplay("{DebuggerDisplay}")]
-public sealed class EventSource<TEvent>() : IEventSource, IEnumerable<IEventHandler<TEvent>>
+public sealed class EventSource<TEvent>() : IEventSource<TEvent>, IEnumerable<IEventHandler<TEvent>>
     where TEvent : IEvent
 {
     public static readonly EventSource<TEvent> Global = new() { IsGlobal = true };
@@ -57,6 +58,7 @@ public sealed class EventSource<TEvent>() : IEventSource, IEnumerable<IEventHand
 
     private IDisposable WriteLock() => HandleLockTimeout(@lock.WriterLock);
     
+    void IEventSource<TEvent>.Add(IEventHandler<TEvent> handler) => Add(handler);
     internal void Add(IEventHandler<TEvent> handler)
     {
         if (handler is null)
@@ -68,6 +70,7 @@ public sealed class EventSource<TEvent>() : IEventSource, IEnumerable<IEventHand
         }
     }
     
+    bool IEventSource<TEvent>.Remove(IEventHandler<TEvent> handler) => Remove(handler);
     internal bool Remove(IEventHandler<TEvent> handler)
     {
         using (WriteLock())
@@ -76,6 +79,7 @@ public sealed class EventSource<TEvent>() : IEventSource, IEnumerable<IEventHand
         }
     }
     
+    void IEventSource<TEvent>.Clear() => Clear();
     internal void Clear()
     {
         using (WriteLock())
@@ -107,9 +111,12 @@ public sealed class EventSource<TEvent>() : IEventSource, IEnumerable<IEventHand
     [ExcludeFromCodeCoverage]
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-    public static EventSource<TEvent> For(IEventSource source)
+    public static IEventSource<TEvent> For(IEventSource? source)
     {
-        if (source is EventSource<TEvent> eventSource)
+        if (source is null)
+            return Global;
+        
+        if (source is IEventSource<TEvent> eventSource)
             return eventSource;
 
         return GlobalPerInstance.GetOrCreateValue(source)!;
