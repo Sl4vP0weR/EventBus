@@ -16,11 +16,13 @@ public static class EventHandlerExtensions
         where TEvent : IEvent => Listen(handler, sources.Select(x => x.AsEventSource<TEvent>()).ToHashSet());
 
     private static Disposable Listen<TEvent>(IEventHandler<TEvent>? handler,
-        params HashSet<EventSource<TEvent>> sources)
+        params HashSet<IEventSource<TEvent>> sources)
         where TEvent : IEvent
     {
         if (handler is null)
             return Disposable.Disposed;
+
+        sources.Remove(null!);
 
         if (sources.Count < 1)
             sources.Add(EventSource<TEvent>.Global);

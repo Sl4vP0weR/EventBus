@@ -4,6 +4,7 @@ using EventSourcing.Abstractions;
 using EventSourcing.Extensions;
 using EventSourcing.Implementations;
 using EventSourcing.Tests.Events;
+using EventSourcing.Tests.Sources;
 
 namespace EventSourcing.Tests.Extensions;
 

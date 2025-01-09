@@ -6,7 +6,7 @@
         <LangVersion>preview</LangVersion>
         <Nullable>annotations</Nullable>
         <RootNamespace>EventSourcing</RootNamespace>
-        <Version>1.0.0.3$(VersionMetadata)</Version>
+        <Version>1.1.0.0$(VersionMetadata)</Version>
         <PackageId>Sl4vP0weR.EventSourcing</PackageId>
         <Description>Event sourcing pattern implementation.</Description>
         <Authors>Sl4vP0weR</Authors>
